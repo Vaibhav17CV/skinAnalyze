@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Health Score</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f9fa;
+            color: #5a5a5a;
+        }
+        .container {
+            margin: 50px auto;
+            width: 100%;
+            max-width: 80%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .score {
+            font-size: 24px;
+            color: #3b5998;
+        }
+        .profile-pic {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+        .metrics {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .metric {
+            width: 80%;
+            margin: 10px 0;
+            text-align: left;
+        }
+        .metric-label {
+            font-size: 14px;
+            color: #5a5a5a;
+        }
+        .scale-container {
+            width: 100%;
+            height: 50px;
+            margin-top: 10px;
+        }
+        .scale {
+            position: relative;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to right, #ff0000, #ffff00, #00ff00);
+            border-radius: 10px;
+        }
+        .scale::before {
+            content: 'Unhealthy';
+            position: absolute;
+            left: 0;
+            top: 100%;
+            transform: translateY(5px);
+            font-size: 12px;
+        }
+        .scale::after {
+            content: 'Healthy';
+            position: absolute;
+            right: 0;
+            top: 100%;
+            transform: translateY(5px);
+            font-size: 12px;
+        }
+        .scale-point {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: #000;
+        }
+        .scale-label {
+            position: absolute;
+            top: 100%;
+            transform: translateY(5px);
+            font-size: 12px;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%; /* Ensures the buttons span the entire container width */
+            max-width: 110px; /* Limits the space between buttons */
+            margin-top: 20px;
+            margin-left: 45%;
+        }
+        .action-buttons a {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 32px; /* Adjusted size */
+            color: #5a5a5a;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .action-buttons a:hover {
+            color: #007bff;
+        }
+        /* Updated CSS for the dialog box */
+        .dialog {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff; /* Match container background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dialog p {
+            font-size: 18px; /* Match container font size */
+            margin-bottom: 10px;
+            color: #3b5998; /* Match container font color */
+        }
+
+        .dialog input[type="text"] {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da; /* Match input border color */
+            border-radius: 5px; /* Match input border radius */
+        }
+
+        .dialog button {
+            background-color: #007bff; /* Match button background color */
+            color: #ffffff; /* Match button text color */
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px; /* Match button border radius */
+        }
+
+        .dialog button:hover {
+            background-color: #0056b3; /* Match button hover background color */
+        }
+
+        .dialog button + button {
+            margin-left: 10px; /* Adjust button spacing */
+        }
+        .ProductsContainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .product-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            width: 250px;
+            text-align: center;
+            padding: 20px;
+        }
+        .product-card img {
+            width: 100px;
+            height: auto;
+        }
+        .product-title {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+        .product-rating, .product-price {
+            margin: 5px 0;
+        }
+        .product-price {
+            font-size: 1.2em;
+            color: #e74c3c;
+        }
+        .add-to-cart {
+            background-color: #f39c12;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="score">Skin Health Score: 56</h1>
+        <div class="profile-section">
+            <img src="https://raw.githubusercontent.com/Vaibhav17CV/skinAnalyze/main/img_1.jpg" alt="Profile Picture" class="profile-pic">
+            <div class="action-buttons">
+                <a  title="Send to WhatsApp" onclick="openDialog('whatsapp')">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a title="Send to Email" onclick="openDialog('email')">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-label">Dark Spots: 61</div>
+                <div class="scale-container">
+                    <div class="scale" data-value="61"></div>
+                </div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Uneven Skin: 61</div>
+                <div class="scale-container">
+                    <div class="scale" data-value="61"></div>
+                </div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Firmness: 72</div>
+                <div class="scale-container">
+                    <div class="scale" data-value="72"></div>
+                </div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Oxygen: 53</div>
+                <div class="scale-container">
+                    <div class="scale" data-value="53"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="score">Recomended Products For Your Skin Care By AI</h1>
+    <div class="container ProductsContainer">
+        
+        <div class="product-card">
+            <img src="https://www.lotusbotanicals.com/cdn/shop/files/1_4_1200x.jpg?v=1689856476" alt="Product Image">
+            <div class="product-title">Vitamin C Skin Brightening Face Serum</div>
+            <div class="product-rating">⭐ 4.7 (92)</div>
+            <div class="product-price">Rs. 785.00</div>
+            <button class="add-to-cart" onclick="openWindow('vitamin-c-skin-brightening-face-serum')">Add To Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://www.lotusbotanicals.com/cdn/shop/files/1_11_1200x.jpg?v=1689856476" alt="Product Image">
+            <div class="product-title">Sandalwood & Hyaluronic Acid Glow and Hydrating Sunscreen Serum</div>
+            <div class="product-rating">⭐ 4.5 (62)</div>
+            <div class="product-price">Rs. 475.00</div>
+            <button class="add-to-cart" onclick="openWindow('sandalwood-hyaluronic-acid-glow-and-hydrating-sunscreen-serum-spf50-pa')">Add To Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://www.lotusbotanicals.com/cdn/shop/files/1_6_1200x.jpg?v=1689856476" alt="Product Image">
+            <div class="product-title">Vitamin C Skin Brightening Day Crème</div>
+            <div class="product-rating">⭐ 4.6 (139)</div>
+            <div class="product-price">Rs. 645.00</div>
+            <button class="add-to-cart" onclick="openWindow('lotus-botanicals-papaya-vitamin-e-face-scrub')">Add To Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://www.lotusbotanicals.com/cdn/shop/files/1_b22e97b2-76af-42f6-8245-95f5760c33f5_1200x.jpg?v=1700906984" alt="Product Image">
+            <div class="product-title">GlycoBoost Radiant Skin Serum Crème</div>
+            <div class="product-rating">⭐ 4.4 (74)</div>
+            <div class="product-price">Rs. 675.00</div>
+            <button class="add-to-cart" onclick="openWindow('copy-of-papaya-niacinamide-brighten-glow-skin-clarifying-super-serum')">Add To Cart</button>
+ 
+ 
+ 
+  <!-- Repeat similar structure for other products -->
+ 
+</div>
+
+
+    <div id="dialog" class="dialog">
+        <p id="dialog-message">Enter your Details number:</p>
+        <input type="text" id="input-field" placeholder="Mobile number or email">
+        <button onclick="sendMessage()">Send</button>
+        <button onclick="closeDialog()">Cancel</button>
+    </div>
+    <script>
+        document.querySelectorAll('.scale').forEach(scale => {
+            const value = scale.getAttribute('data-value');
+            const point = document.createElement('div');
+            point.className = 'scale-point';
+            point.style.left = `${value}%`;
+            scale.appendChild(point);
+
+            const label = document.createElement('div');
+            label.className = 'scale-label';
+            label.style.left = `${value}%`;
+            label.style.transform = 'translateX(-50%) translateY(5px)';
+            label.textContent = value;
+            scale.appendChild(label);
+        });
+        function openWindow(url){
+            url = "https://www.lotusbotanicals.com/products/"+url;
+            window.open(url, '_blank');
+        }
+
+        function openDialog(type) {
+            document.getElementById('dialog').style.display = 'block';
+            document.getElementById('input-field').value='';
+            if (type === 'whatsapp') {
+                document.getElementById('dialog-message').innerText = 'Enter your mobile number:';
+                
+            } else if (type === 'email') {
+                document.getElementById('dialog-message').innerText = 'Enter your email:';
+            }
+        }
+
+        function closeDialog() {
+            document.getElementById('dialog').style.display = 'none';
+        }
+
+        function sendMessage() {
+            var inputField = document.getElementById('input-field').value;
+            if (inputField.trim() !== '') {
+                if (inputField.includes('@')) {
+                    // Send via Email
+                    alert("Your Skin Health report sent succesfully via Email to: " + inputField);
+                } else {
+                    // Send via WhatsApp
+                    alert("Your Skin Health report sent succesfully via WhatsApp to: " + inputField);
+                }
+                closeDialog();
+            } else {
+                alert("Please enter a valid mobile number or email address.");
+            }
+        }
+
+
+    </script>
+</body>
+</html>

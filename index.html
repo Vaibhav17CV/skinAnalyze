@@ -523,12 +523,12 @@
                         </div>
                         <div class="section-header-section">
                             <h5>3</h5>
-                            <h6>Your Details</h6>
+                            <h6>See your Skin Quality Score</h6>
                         </div>
                         <div class="form-section">
                             <form action="">
                                 <div class="form-wrapper">
-                                    <div class="input">
+                                    <!-- <div class="input">
                                         <div id="nameError" class="error"></div>
                                         <input type="text" name="name" id="cam_name" value="" required="" placeholder="Your Name">
                                     </div>
@@ -539,8 +539,8 @@
                                     <div class="input">
                                         <div id="emailError" class="error"></div>
                                         <input type="email" name="number" id="cam_email" value="" required="" placeholder="Email">
-                                    </div>
-                                    <button class="btn-flat-skin" type="button" onclick="insert_camera_data()">
+                                    </div> -->
+                                    <button class="btn-flat-skin" type="button" onclick="OpenPage()">
                                         NEXT
                                         <div class="icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -562,8 +562,8 @@
     </section>
 
     <!-- page #7 -->
-    <section class="result-c-7-section-main-wrapper">
-        <section class="result-c-7-outer-wrapper main-outer-wrapper">
+    <!-- <section class="result-c-6-section-main-wrapper">
+        <section class="result-c-6-outer-wrapper main-outer-wrapper">
             <div class="bg-abstract">
                 <img src="https://thedwave.com/public/assets_web/images/know-skin-ai/bg-abstract-web.png" alt="" class="web-c-abstract">
                 <img src="https://thedwave.com/public/assets_web/images/know-skin-ai/bg-abstract-mob.png" alt="" class="mob-c-abstract">
@@ -571,7 +571,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <div class="result-c-7-outer-wrapper">
+                        <div class="result-c-6-outer-wrapper">
                             <div class="logo">
                            <div class="home-btn">
                                         <a href="/">
@@ -588,7 +588,7 @@
                             <div class="result-wrapper">
                                 <div id="results-tbl7-score"> </div>
                                 <div class="photo">
-                                    <img id="myImage7" src="https://thedwave.com/public/assets_web/images/know-skin-ai/dummy-photo.jpg" alt="">
+                                   
                                 </div>
                             
                               <div id="results-tbl7"> </div>
@@ -603,7 +603,7 @@
         </section>
                 
        
-    </section>
+    </section> -->
   
         
 
@@ -645,6 +645,11 @@
 
 
 <script>
+    function OpenPage(){
+        url = "profile_new.html";
+        window.location.href = url;
+    }
+
     function insert_camera_data()
     {
        var cam_name =$("#cam_name").val();
