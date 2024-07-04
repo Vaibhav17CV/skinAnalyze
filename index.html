@@ -629,10 +629,16 @@
             // Here's an example using FormData and the fetch API:
             const formData = new FormData();
             formData.append('image', imageFile);
-            processimage(imageFile)
+            // displayResult(r), show(document.getElementById("btnReset"));
+            // processimage(imageFile)
+            $(".step-2-page-c-4-outer-wrapper").removeClass("show");
+            $(".analyzing-page-c-5-outer-wrapper").addClass("show");
+            $(".analyzing-page-c-5-outer-wrapper").removeClass("show"), $(".form-page-c-6-outer-wrapper").addClass("show");
            
         }
     });
+
+    
 
 
 
