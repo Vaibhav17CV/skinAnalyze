@@ -382,7 +382,7 @@
                                 </div>
 
                                 <div class="center">
-                                    <button type="button" onclick="process()" class="mt-3">Capture</button>
+                                    <button type="button" onclick="Cameraprocess()" class="mt-3">Capture</button>
                                 </div>
 
                             </div>
@@ -631,14 +631,38 @@
             formData.append('image', imageFile);
             // displayResult(r), show(document.getElementById("btnReset"));
             // processimage(imageFile)
+            // (imageUrl = URL.createObjectURL(e)),
+            
             $(".step-2-page-c-4-outer-wrapper").removeClass("show");
             $(".analyzing-page-c-5-outer-wrapper").addClass("show");
-            $(".analyzing-page-c-5-outer-wrapper").removeClass("show"), $(".form-page-c-6-outer-wrapper").addClass("show");
+            document.getElementById("capturedPic").src = imageUrl;
+            document.getElementById("capturedPicAnalyze").src = imageUrl;
+            sleep(5000, function() {
+                $(".analyzing-page-c-5-outer-wrapper").removeClass("show"), $(".form-page-c-6-outer-wrapper").addClass("show");
+            });
+           
            
         }
     });
 
-    
+    function sleep(ms, callback) {
+        setTimeout(callback, ms);
+    }
+
+    Cameraprocess = async function () {
+        const e = await cameraModule.capture();
+        cameraModule.stopCamera(), hide(document.getElementById("cameraContainer")), show(document.getElementById("results-section"));
+        
+        $(".step-2-page-c-4-outer-wrapper").removeClass("show");
+        $(".analyzing-page-c-5-outer-wrapper").addClass("show");
+        capturedPicBlobUrl = URL.createObjectURL(e);
+        document.getElementById("capturedPic").src = capturedPicBlobUrl;
+        document.getElementById("capturedPicAnalyze").src = capturedPicBlobUrl;
+        sleep(5000, function() {
+                $(".analyzing-page-c-5-outer-wrapper").removeClass("show"), $(".form-page-c-6-outer-wrapper").addClass("show");
+            });
+        console.log(capturedPicBlobUrl);
+    }
 
 
 
@@ -656,6 +680,10 @@
         window.location.href = url;
     }
 
+    function OpenPagewithImg(burl){
+        url = "profile_new.html?"+burl;
+        window.location.href = url;
+    }
     function insert_camera_data()
     {
        var cam_name =$("#cam_name").val();

@@ -50,7 +50,7 @@ const displayError = function (e) {
             show(document.getElementById("results-section")),
             (capturedPicBlobUrl = URL.createObjectURL(e)),
             (document.getElementById("capturedPic").src = capturedPicBlobUrl),
-            common_processing(e);
+            // common_processing(e);
     },
     hide = function (e) {
         e.classList.add("hide");
